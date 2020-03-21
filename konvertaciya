@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+int fatoi (const char *str)
+{
+    int d = strlen(str);
+    int q = pow(10,d)/10;
+    int i;
+    int r=0;
+        for (i=0; str[i]!='\0'; i++){
+                if (str[i]=='1')
+                    r=r+(1*q);
+                else if (str[i]=='2')
+                    r=r+(2*q);
+                else if (str[i]=='3')
+                    r=r+(3*q);
+                else if (str[i]=='4')
+                    r=r+(4*q);
+                else if (str[i]=='5')
+                    r=r+(5*q);
+                else if (str[i]=='6')
+                    r=r+(6*q);
+                else if (str[i]=='7')
+                    r=r+(7*q);
+                else if (str[i]=='8')
+                    r=r+(8*q);
+                else if (str[i]=='9')
+                    r=r+(9*q);
+                else if (str[i]=='0')
+                    r=r+(0*q);
+                q=q/10;
+    }
+    return r;
+}
+
+
+int main()
+{
+    char s[] = "11111";
+    printf("%d\n", fatoi(s));
+    return 0;
+}
