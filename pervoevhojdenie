@@ -14,8 +14,10 @@ int *str_chr(char *s, char c)
 
 int main()
 {
+    int h;
     char q[] = "Hello!";
-    char w='l'; 
-    printf("Adres pervogo vhojdeniya:[%d] ", str_chr(q,w)) ;
+    char w='l';
+    h=str_chr(q,w);
+    printf("Adres pervogo vhojdeniya:[%p] ", &h) ;
     return 0;
 }
