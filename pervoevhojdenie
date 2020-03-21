@@ -14,8 +14,8 @@ int *str_chr(char *s, char c)
 
 int main()
 {
-    char q[] = "Hello!"; // Введите строку
-    char w='l'; //Введите символ, адрес которого необходимо узнать
+    char q[] = "Hello!";
+    char w='l'; 
     printf("Adres pervogo vhojdeniya:[%d] ", str_chr(q,w)) ;
     return 0;
 }
