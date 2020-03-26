@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <limits.h>
+#define M 5
+#define N 10
+
+int main()
+{
+  int a[M][N];
+  int i, j;
+  int u;
+  u=INT_MAX;
+
+  for(i = 0; i < M; i++)
+    for(j = 0; j < N; j++)
+      a[i][j] = rand()%100;
+
+  for(i = 0; i < M; i++){
+      for(j = 0; j < N; j++)
+        printf("%5d", a[i][j]);
+      printf("\n");
+  }
+
+    for(j = 0; j < N; j++){
+      u=INT_MAX;
+      for(i = 0; i < M; i++)
+          if (a[i][j]<u)
+            u=a[i][j];
+
+
+    printf("%d\t", u);
+
+    }
+  return 0;
+}
