@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -162,6 +161,7 @@ int main()
 			printf("Click 5 to delete all islands\n");
 			printf("Click 6 to search island\n");
 			printf("Click 7 to exit. \n \n");
+			printf("Click 8 to About. \n \n");
 
 
 			int b = scanf("%d", &n);
@@ -256,6 +256,14 @@ int main()
 				printf("error: entered invalid value \n");
 				system("pause");
 				break;
+
+            case 8:
+	            if (head == NULL)
+				{
+					printf("Developer: Minakov Daniil | Bonch | Saint P \n");
+					system("pause");
+					break;
+				}
 			}
 		}
 	}
