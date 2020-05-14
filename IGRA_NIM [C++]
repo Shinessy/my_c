@@ -1,0 +1,104 @@
+#include <iostream>
+#include <string>
+#include <time.h>
+#include <cstdlib>
+
+using namespace std;
+
+int compChoose(int stones);
+int userChoose(int stones);
+int random()
+{
+	int random;
+	random=(rand()%(3-1+1)+1);
+	return random;
+}
+void Intructions()
+{
+				cout << "\t\tThis Program plays the game of Nim with the user \n\n";
+				cout << "\t\tThe user starts first by entering the number of stones\n";
+				cout << "\t\tthey wish to takes away (Between 1 and 3)\n";   //Instructions
+				cout << "\t\tThen the computer will take away another amount between 1 and 3\n";
+				cout << "\t\tWho ever is the last player to take the last stone loses\n";
+				cout << "\t\t\t\t\tENJOY!\n\n\n";
+}
+int compChoose(int stones)
+  //Возвращает случайное число от 1 до 3, представляющее выбор компьютера
+{
+  int choice; //Представляет выбор компьютера
+  do {
+	choice = (random() % 3) + 1;
+  } while (stones - choice < 1);
+  return choice;
+}
+int main ()
+{
+	 srand((unsigned)time(NULL));
+
+
+	cout << "\t\t*****************************************\n\n";
+	cout << "\t\t\t\tN I M ! ! ! !\n";
+	cout << "\t\t*****************************************\n\n";
+
+ Intructions();
+
+ bool winner = false;  //Переменная указывает, когда у нас есть победитель
+  int computeChoose; //Переменная представляет выбор компьютера
+  int stones = (rand()%(30-15+1)+15);  //Переменная представляет собой количество оставшихся камней
+
+  cout << "\t\tWelcome to the game of Nim.  There are " << stones <<" stones."<< endl;;
+
+  while (!winner)
+  {
+
+	cout <<"\t\tEnter how many you would like to take away: "<< endl;
+	//Пользователь делает выбор
+	stones -= userChoose(stones);
+	cout <<"\t\tThe number of stones left is " << stones << ".\n\n" << endl;
+	if (stones == 1)
+	{
+	  winner = true;
+	  cout << "\t\t\t\tYou win!" << endl;
+	}
+	else
+	{
+	  //Очередь компьютера
+	  computeChoose = compChoose(stones);
+	  stones -= computeChoose;
+	  cout << "\t\tComputer chooses " << computeChoose << endl;
+	  cout << "\t\tThe number of stones left is " << stones << ".\n\n" << endl;
+	  if (stones == 1)
+	  {
+	winner = true;
+		cout << "\t\t\tComputer wins" << endl;
+	  }
+	}
+  }
+}
+int userChoose(int stones)
+{
+
+  int choice;
+  cout << "\t\t\t\t\t";
+  cin >> choice;
+  //Зациклен до тех пор, пока не будет сделан правильный выбор
+  while (choice <1 || choice > 3 || stones - choice <= 0)
+  {
+	if (choice < 1 || choice > 3) //Можно только выбрать между 1 и 3
+	{
+	  cout << "\t\aYour choice must be between 1 and 3" << endl;
+	  cout << "\t\tEnter another choice: " << endl;
+	  cout << "\t\t\t\t\t";
+	  cin >> choice;
+	}
+	else if (stones - choice <= 1) //Пользователь взял слишком много камней
+	  {
+	cout << "\tYou must leave at least one stone" << endl;
+		cout << "\t\tEnter another choice: " << endl;
+		cout << "\t\t\t\t\t";
+		cin >>  choice;
+	  }
+	return choice;
+  }
+	return choice;
+}
