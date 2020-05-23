@@ -1,0 +1,235 @@
+#include <iostream>
+#include <string>
+#include <time.h>
+#include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
+#include <fstream>
+
+using namespace std;
+
+int compChoose(int stones);
+int userChoose(int stones);
+int lose = 0;
+long random()
+{
+    int random;
+    random = (rand() % (3 - 1 + 1) + 1);
+    return random;
+}
+
+
+
+void Intructions()
+{
+    system("cls");
+    cout << "\t\tThis Program plays the game of Nim with the user \n\n";
+    cout << "\t\tThe user starts first by entering the number of stones\n";
+    cout << "\t\tthey wish to takes away (Between 1 and 3)\n";   //Instructions
+    cout << "\t\tThen the computer will take away another amount between 1 and 3\n";
+    cout << "\t\tWho ever is the last player to take the last stone loses\n";
+    cout << "\t\t\t\t\tENJOY!\n\n\n";
+}
+
+void startmenu()
+{
+    cout << "\t\t*****************************************\n\n";
+    cout << "\t\t\t\tN I M ! ! ! !\n";
+    cout << "\t\t*****************************************\n\n";
+    cout << "What do you want to do?" << endl;
+    cout << "1. Player vs Computer" << endl;
+    cout << "2. Player vs Player" << endl;
+    cout << "3. Instructions" << endl;
+    cout << "4. Record" << endl;
+    cout << "5. Exit" << endl;
+    cout << ">";
+
+}
+
+int get_variant(int count) {
+    int variant;
+    char s[100];
+    scanf("%s", s);
+
+
+    while (sscanf(s, "%d", &variant) != 1 || variant < 1 || variant > count) {
+        printf("Incorrect input. Try again: ");
+        scanf("%s", s);
+    }
+
+    return variant;
+}
+
+
+int record() {
+    system("cls");
+    cout << "\t\tUnder development... \n\n";
+
+    string path = "Record.txt";
+
+
+    fstream fs;
+    fs.open(path, fstream::in | fstream::out | fstream::app);
+    if (!fs.is_open())
+    {
+        cout << "Error reading file!" << endl;
+    }
+    else
+    {
+        string msg;
+
+        cout << "Opening the file..\n" << endl;
+        cout << "Reading data from the file...\n" << endl;
+
+        while (!fs.eof())
+        {
+            
+            fs >> msg;
+            cout <<"Your current record: "<< msg << endl;
+        }
+    }
+
+    fs.close();
+    return 0;
+}
+
+int gamep() {
+    system("cls");
+    cout << "\t\tUnder development... \n\n";
+    return 0;
+}
+
+
+int gamec() {
+    
+    srand((unsigned)time(NULL));
+    bool winner = false;
+    int computeChoose;
+    int stones = (rand() % (30 - 15 + 1) + 15);
+    if (lose == 1) 
+    {
+        ofstream fout("Record.txt");
+        fout << 0;
+        lose = 0;
+    }
+
+    cout << "\t\tWelcome to the game of Nim.  There are " << stones << " stones." << endl;;
+
+    while (!winner)
+    {
+        cout << "\t\tEnter how many you would like to take away: " << endl;
+
+        stones -= userChoose(stones);
+        cout << "\t\tThe number of stones left is " << stones << ".\n\n" << endl;
+        if (stones == 1)
+        {
+            winner = true;
+            cout << "\t\t\t\tYou win!" << endl;
+
+            fstream fs;
+            fs.open("Record.txt");
+            
+            char msg[5];
+            fs >> msg;
+            int count = atoi(msg);          
+            count++;
+            ofstream fout("Record.txt");
+            fout << count;
+            fs.close();
+        }
+        else
+        {
+
+            computeChoose = compChoose(stones);
+            stones -= computeChoose;
+            cout << "\t\tComputer chooses " << computeChoose << endl;
+            cout << "\t\tThe number of stones left is " << stones << ".\n\n" << endl;
+            if (stones == 1)
+            {
+                winner = true;
+                cout << "\t\t\tComputer wins" << endl;
+                lose = 1;
+            }
+        }
+    }
+    return 0;
+}
+int userChoose(int stones)
+{
+
+    int choice;
+    cout << "\t\t\t\t\t";
+    cin >> choice;
+
+    while (choice < 1 || choice > 3 || stones - choice <= 0)
+    {
+        if (choice < 1 || choice > 3)
+        {
+            cout << "\t\aYour choice must be between 1 and 3" << endl;
+            cout << "\t\tEnter another choice: " << endl;
+            cout << "\t\t\t\t\t";
+            cin >> choice;
+        }
+        else if (stones - choice <= 1)
+        {
+            cout << "\tYou must leave at least one stone" << endl;
+            cout << "\t\tEnter another choice: " << endl;
+            cout << "\t\t\t\t\t";
+            cin >> choice;
+        }
+        return choice;
+    }
+    return choice;
+}
+
+
+
+int compChoose(int stones)
+
+{
+    int choice;
+    do {
+        choice = (random() % 3) + 1;
+    } while (stones - choice < 1);
+    return choice;
+}
+
+
+
+int main()
+{
+    int variant;
+    do {
+        system("cls");
+        startmenu();
+
+        variant = get_variant(5);
+
+        switch (variant) {
+        case 1:
+            gamec();
+            break;
+
+        case 2:
+            gamep();
+            break;
+
+        case 3:
+            Intructions();
+            break;
+
+        case 4:
+            record();
+            break;
+        }
+
+        if (variant != 5)
+            system("pause");
+    } while (variant != 5);
+
+    return 0;
+
+
+
+}
+
